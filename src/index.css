@@ -1,14 +1,99 @@
+ @font-face {
+    font-family: "AlanSans";
+    src: url("/fonts/alanleague-spartan-v15-latin-500-sans-v1-latin-300.woff2") format("woff2");
+    font-weight: 300;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "AlanSans";
+    src: url("/fonts/alan-sans-v1-latin-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "AlanSans";
+    src: url("/fonts/alan-sans-v1-latin-500.woff2") format("woff2");
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-500.woff2") format("woff2");
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-600.woff2") format("woff2");
+    font-weight: 600;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-700.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+  }
+    @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-800.woff2") format("woff2");
+    font-weight: 800;
+    font-display: swap;
+  }
+     @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-900.woff2") format("woff2");
+    font-weight: 900;
+    font-display: swap;
+  }
+
+    @font-face {
+    font-family: "Outfit";
+    src: url("/fonts/outfit-v15-latin-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+  }
+      @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-v20-latin-300.woff2") format("woff2");
+    font-weight: 300;
+    font-display: swap;
+  }
+        @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-v20-latin-500.woff2") format("woff2");
+    font-weight: 500;
+    font-display: swap;
+  }      @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-v20-latin-600.woff2") format("woff2");
+    font-weight: 600;
+    font-display: swap;
+  }      @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-v20-latin-700.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+  }      @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-v20-latin-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+  }
 @import "tailwindcss";
 
 body {
-  @apply max-h-screen flex flex-col justify-center items-center min-h-screen text-gray-200;
+  @apply max-h-screen flex flex-col justify-center items-center min-h-screen text-gray-200 font-outfit tracking-wide ;
   background: linear-gradient(-45deg, #3b82f6, #8b5cf6);
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;
+   letter-spacing: -0.011em;
 }
 
 @theme {
   --animate-gradient: gradient 8s ease infinite;
+  --font-outfit:"Outfit","sans-serif";
+  --font-manrope:"Manrope","sans-serif";
   
   @keyframes gradient {
     0%, 100% {

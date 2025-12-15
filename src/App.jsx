@@ -9,28 +9,47 @@ import InformationBox from "./components/InformationBox/InformationBox.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import { useState,useEffect } from "react";
 import { WiCloud, WiDaySunny, WiRain, WiSnow, WiFog } from "react-icons/wi";
+import { ImSpinner9 } from "react-icons/im";
 
 
 function App() {
   const [cityName, setCityName] = useState("");
   const [weather, setWeather] = useState(null);
   const [displayCity, setDisplayCity] = useState("London");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchWeather = async (city) => {
     let apiKey = "d847dbde60c3a3401aa4fcfc7cd17730";
     let baseUrl = "https://api.openweathermap.org/data/2.5/weather";
-       const cityToFetch = city || cityName;   
+      try{
+          setIsLoading(true);   // start loading
+    setError(null);
+         const cityToFetch = city || cityName;   
     if (!cityToFetch) return;
 
     const response = await fetch(`${baseUrl}?q=${cityToFetch}&appid=${apiKey}&units=metric`);
-    const data = await response.json();
+    
+if(!response.ok){
+  throw new Error(`${response.status}-${response.statusText}`);
+    }
+const data = await response.json();
     setWeather(data);
      setDisplayCity(cityToFetch);
-     setCityName("")
+     setCityName("");
+  }
+    catch(err){setError(err);}
+finally{
+    setIsLoading(false);   
+    
+}
   };
 useEffect(() => {
   fetchWeather("London");
 }, []);
+if (isLoading) return <div className="flex flex-row justify-center items-center min-h-screen text-3xl"><ImSpinner9 className="animate-spin mr-2 w-8 h-8"/>
+  Loading...</div>;
+if (error) return <div>Error: {error.message}</div>;
 function getWeatherIcon(condition) {
   if (!condition) return null;
 
@@ -49,7 +68,7 @@ function getWeatherIcon(condition) {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col w-1/2 items-center justify-center mx-auto">
+      <div className="  min-h-screen flex flex-col w-1/2 items-center justify-center mx-auto">
         {/* app  */}
         <section className="bg-white/20  backdrop-blur-md rounded-xl shadow-xl border border-white/30  p-20 m-20 mt-30">
           {/* search box */}

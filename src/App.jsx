@@ -73,7 +73,7 @@ function getWeatherIcon(condition) {
     <>
       <div className="w-full  min-h-screen flex flex-col  items-center justify-center mx-auto">
         {/* app  */}
-        <section className="bg-white/20 min-h-dvh w-full max-w-xs flex flex-col justify-center items-center sm:max-w-xl md:max-w-5xl  backdrop-blur-md rounded-xl shadow-xl border border-white/30 p-5 m-5 mt-6 md:p-20 md:m-20 md:mt-30">
+        <section className="bg-white/20 min-h-dvh w-full max-w-xs flex flex-col justify-center items-center sm:max-w-xl md:max-w-5xl  backdrop-blur-md rounded-xl shadow-xl border border-white/30 p-5 m-5 mt-6 md:p-20 ">
           {/* search box */}
           <div className="flex flex-row w-full max-w-xs md:max-w-xl justify-between px-4 py-2 border border-white/30 shadow-md rounded-xl font-normal">
             <input

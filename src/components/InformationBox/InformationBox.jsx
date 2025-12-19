@@ -8,12 +8,12 @@ export default function InformationBox({Icon,
   }
 }) {
   return (
-    <div className="flex flex-1 flex-col gap-2 justify-center items-center border  border-white/30 rounded-lg p-4 shadow-md ">
+    <div className="flex shrink-0  flex-col  gap-2 justify-center items-center border  border-white/30 rounded-lg p-4 shadow-md ">
 <div >
-    <Icon className=" w-10 h-10 " />
+    <Icon className="md:w-10 md:h-10 w-8 h-8 " />
 </div>
-<p className="text-xl font-medium">{title}</p>
-<div className="flex flex-row justify-center items-center gap-2"><span className=" text-2xl font-semibold "> </span><span className="font-medium font-manrope">{value}{"  "}{unit}</span></div>
+<p className="md:text-xl text-lg font-medium">{title}</p>
+<div className="flex flex-row justify-center items-center gap-2"><span className=" md:text-2xl text-lg font-semibold "> </span><span className="font-medium font-manrope">{value}{"  "}{unit}</span></div>
 </div>
   )
 }

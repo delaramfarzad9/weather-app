@@ -10,6 +10,8 @@ import Footer from "./components/Footer/Footer.jsx";
 import { useState,useEffect } from "react";
 import { WiCloud, WiDaySunny, WiRain, WiSnow, WiFog } from "react-icons/wi";
 import { ImSpinner9 } from "react-icons/im";
+import.meta.env.VITE_WEATHER_API_KEY
+
 
 
 function App() {
@@ -20,8 +22,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchWeather = async (city) => {
-    let apiKey = "d847dbde60c3a3401aa4fcfc7cd17730";
+    
     let baseUrl = "https://api.openweathermap.org/data/2.5/weather";
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
       try{
           setIsLoading(true);   // start loading
     setError(null);
@@ -68,11 +71,11 @@ function getWeatherIcon(condition) {
 
   return (
     <>
-      <div className="  min-h-screen flex flex-col w-1/2 items-center justify-center mx-auto">
+      <div className="w-full  min-h-screen flex flex-col  items-center justify-center mx-auto">
         {/* app  */}
-        <section className="bg-white/20  backdrop-blur-md rounded-xl shadow-xl border border-white/30  p-20 m-20 mt-30">
+        <section className="bg-white/20 min-h-dvh w-full max-w-xs flex flex-col justify-center items-center sm:max-w-xl md:max-w-5xl  backdrop-blur-md rounded-xl shadow-xl border border-white/30 p-5 m-5 mt-6 md:p-20 md:m-20 md:mt-30">
           {/* search box */}
-          <div className="flex flex-row justify-between px-4 py-2 border border-white/30 shadow-md rounded-xl font-normal">
+          <div className="flex flex-row w-full max-w-xs md:max-w-xl justify-between px-4 py-2 border border-white/30 shadow-md rounded-xl font-normal">
             <input
               value={cityName}
               onChange={(e) => setCityName(e.target.value)}
@@ -83,25 +86,25 @@ function getWeatherIcon(condition) {
     }
   }}
               type="text"
-              className="w-full max-w-sm text-2xl text-gray-300 bg-transparent  focus:placeholder-gray-100 outline-none hover:outline-none "
+              className="w-full max-w-sm md:text-2xl text-lg text-gray-300 bg-transparent  focus:placeholder-gray-100 outline-none hover:outline-none "
               placeholder="City name..."
             />
             <button onClick={() => fetchWeather()}
    
             >
               {" "}
-              <HiOutlineSearch className="w-8 h-8  hover:text-gray-100 " />
+              <HiOutlineSearch className="md:w-8 md:h-8 w-7 h-7  hover:text-gray-100 " />
             </button>
           </div>
           {/* city name text */}
-          <h1 className="text mt-8 text-3xl font-semibold whitespace-nowrap">
-            How is the weather today in
+          <h1 className="text mt-8 text-lg md:text-3xl font-semibold whitespace-nowrap">
+            How's the weather today in
             <span className="ml-2 font-bold  city-name text-indigo-600">{displayCity.replace(/\b\w/g, char => char.toUpperCase()) || "London"}</span>
           </h1>
           {/* temperature & status */}
-          <div className=" h-min flex flex-row justify-center gap-4 items-center mt-10 border  border-white/30  shadow-md py-4  rounded-full">
+          <div className=" w-full flex flex-row justify-center gap-4 items-baseline md:mt-10 mt-5 border  border-white/30  shadow-md py-4  rounded-full">
           {/* temp  */}
-            <p className="-ml-10 flex flex-row font-manrope temp text-7xl font-bold ">
+            <p className="-ml-10  flex flex-row font-manrope temp md:text-7xl text-5xl font-bold ">
               {" "}
               
                {weather?.main ? Math.round(weather?.main?.temp) : "..."}
@@ -109,7 +112,7 @@ function getWeatherIcon(condition) {
             </p>
             {/* status */}
            <div className="relative">
-             <p className="  text-4xl font-semibold pt-7"> {weather?.weather[0]?.main}</p>
+             <p className="text-2xl  md:text-4xl font-semibold pt-7"> {weather?.weather[0]?.main}</p>
               {/* statis icon */}
             <div className="absolute -right-10 -top-1">
               {getWeatherIcon(weather?.weather[0]?.main)}
@@ -118,10 +121,21 @@ function getWeatherIcon(condition) {
            
           </div>
           {/* cards */}
-          <div className="flex  flex-row flex-nowrap gap-3 justify-center items-center mt-20">
-            <InformationBox Icon={FiWind} details={{title:"Wind Speed", value: weather?.wind?.speed, unit:"km/h"}}/>
-            <InformationBox Icon={TbDroplet} details={{title:"Humidity", value: weather?.main?.humidity, unit:"%"}} />
-            <InformationBox Icon={FaGauge} details={{title:"pressure", value: weather?.main?.pressure, unit:"hPa"}} />
+          <div className="flex max-w-xs flex-wrap md:flex-row flex-col gap-4 justify-center items-center mt-10 md:mt-20">
+        
+            <InformationBox  Icon={FiWind} details={{title:"Wind Speed", value: weather?.wind?.speed, unit:"km/h"}}/>
+        
+           
+             <InformationBox Icon={TbDroplet} details={{title:"Humidity", value: weather?.main?.humidity, unit:"%"}} />
+          
+         
+              <InformationBox Icon={FaGauge} details={{title:"Pressure", value: weather?.main?.pressure, unit:"hPa"}} />
+            
+          
+        
+            <InformationBox Icon={FaGauge} details={{title:"Min Temp", value: weather?.main?.temp_min, unit:"°C"}} />
+              <InformationBox Icon={FaGauge} details={{title:"Max Temp", value: weather?.main?.temp_max, unit:"°C"}} />
+              <InformationBox Icon={FaGauge} details={{title:"Feels Like", value: weather?.main?.feels_like, unit:"°C"}} />
           </div>
         </section>
         <Footer />

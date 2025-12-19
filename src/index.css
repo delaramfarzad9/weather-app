@@ -83,7 +83,7 @@
 @import "tailwindcss";
 
 body {
-  @apply max-h-screen flex flex-col justify-center items-center min-h-screen text-gray-200 font-outfit tracking-wide ;
+  @apply  flex flex-col justify-center items-center  text-gray-200 font-outfit tracking-wide ;
   background: linear-gradient(-45deg, #3b82f6, #8b5cf6);
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;

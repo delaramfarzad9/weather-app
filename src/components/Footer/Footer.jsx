@@ -8,7 +8,7 @@ export default function Footer() {
       
       <div className="flex gap-4">
         <a href="https://github.com/delaramfarzad9/weather-app" className="hover:text-rose-500">GitHub</a>
-        <a href="https://yourportfolio.com" className="hover:text-rose-500">Portfolio</a>
+        {/* <a href="https://yourportfolio.com" className="hover:text-rose-500">Portfolio</a> */}
       </div>
     </footer>
    

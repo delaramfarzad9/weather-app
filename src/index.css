@@ -84,7 +84,14 @@
 
 body {
   @apply  flex flex-col justify-center items-center  text-gray-200 font-outfit tracking-wide ;
-  background: linear-gradient(-45deg, #3b82f6, #8b5cf6);
+background: linear-gradient(
+  to bottom,
+  #192241 0%,
+  #3a2d5c 40%,
+  #8E41A5 100%
+);
+
+
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;
    letter-spacing: -0.011em;

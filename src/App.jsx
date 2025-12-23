@@ -13,7 +13,9 @@ import { ImSpinner9 } from "react-icons/im";
 import { FaSortAmountUp } from "react-icons/fa";
 import { FaSortAmountDownAlt } from "react-icons/fa";
 import { TbTemperature } from "react-icons/tb";
-import.meta.env.VITE_WEATHER_API_KEY
+import.meta.env.VITE_WEATHER_API_KEY;
+import ErrorMessage from "./components/errorMessage/ErrorMessage.jsx";
+
 
 
 
@@ -55,7 +57,22 @@ useEffect(() => {
 }, []);
 if (isLoading) return <div className="flex flex-row justify-center items-center min-h-screen text-3xl"><ImSpinner9 className="animate-spin mr-2 w-8 h-8"/>
   Loading...</div>;
-if (error) return <div>Error: {error.message}</div>;
+if (error) {
+  const is404 = error.message.includes("404");
+
+  return (
+    <ErrorMessage
+      title={is404 ? "City Not Found" : "Oops!"}
+      message={is404 
+        ? "We couldn't find that city.Please check the spelling and try again."
+        : error.message
+      }
+      onRetry={() => fetchWeather(displayCity)}
+     
+    />
+  );
+}
+
 function getWeatherIcon(condition) {
   if (!condition) return null;
 
@@ -100,9 +117,9 @@ function getWeatherIcon(condition) {
             </button>
           </div>
           {/* city name text */}
-          <h1 className="text mt-8 text-base sm:text-xl  md:text-3xl font-semibold whitespace-nowrap">
+          <h1 className=" mt-8 text-xl  md:text-3xl font-semibold whitespace-nowrap">
             How's the weather today in
-            <span className="ml-2 font-bold  city-name text-yellow-600">{displayCity.replace(/\b\w/g, char => char.toUpperCase()) || "London"}</span>
+            <span className="ml-2 font-bold text-2xl md:text-4xl  text-yellow-600">{displayCity.replace(/\b\w/g, char => char.toUpperCase()) || "London"}</span>
           </h1>
           {/* temperature & status */}
           <div className="w-full bg-white/20 flex flex-row justify-center gap-4 items-baseline  md:mx-0 md:mt-10 mt-5  shadow-md py-4  rounded-full">
@@ -124,7 +141,7 @@ function getWeatherIcon(condition) {
            
           </div>
           {/* cards */}
-          <div className="grid grid-cols-2 gap-4 mt-10">
+          <div className="grid grid-cols-2 gap-5 md:gap-10 mt-10">
              <InformationBox Icon={FaSortAmountDownAlt} details={{title:"Min Temp", value: Math.round(weather?.main?.temp_min), unit:"°C"}} />
               <InformationBox Icon={FaSortAmountUp } details={{title:"Max Temp", value: Math.round(weather?.main?.temp_max), unit:"°C"}} />
         

@@ -8,7 +8,7 @@ Users can search for any city and instantly view real‑time weather details inc
 
 ## 📸 Screenshot
 
-![Weather App Screenshot](./public/images/public/images/weatherapp.png)
+![Weather App Screenshot](./public/images/weatherapp.png)
 
 
 ## 🛠 Technologies

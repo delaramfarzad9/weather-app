@@ -7,7 +7,7 @@ import { RiCelsiusFill } from "react-icons/ri";
 import "./App.css";
 import InformationBox from "./components/InformationBox/InformationBox.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { WiCloud, WiDaySunny, WiRain, WiSnow, WiFog } from "react-icons/wi";
 import { ImSpinner9 } from "react-icons/im";
 import { FaSortAmountUp } from "react-icons/fa";
@@ -15,9 +15,6 @@ import { FaSortAmountDownAlt } from "react-icons/fa";
 import { TbTemperature } from "react-icons/tb";
 import.meta.env.VITE_WEATHER_API_KEY;
 import ErrorMessage from "./components/errorMessage/ErrorMessage.jsx";
-
-
-
 
 function App() {
   const [cityName, setCityName] = useState("");
@@ -27,136 +24,186 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchWeather = async (city) => {
-    
     let baseUrl = "https://api.openweathermap.org/data/2.5/weather";
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-      try{
-          setIsLoading(true);   // start loading
-    setError(null);
-         const cityToFetch = city || cityName;   
-    if (!cityToFetch) return;
+    try {
+      setIsLoading(true); // start loading
+      setError(null);
+      const cityToFetch = city || cityName;
+      if (!cityToFetch) return;
 
-    const response = await fetch(`${baseUrl}?q=${cityToFetch}&appid=${apiKey}&units=metric`);
-    
-if(!response.ok){
-  throw new Error(`${response.status}-${response.statusText}`);
-    }
-const data = await response.json();
-    setWeather(data);
-     setDisplayCity(cityToFetch);
-     setCityName("");
-  }
-    catch(err){setError(err);}
-finally{
-    setIsLoading(false);   
-    
-}
-  };
-useEffect(() => {
-  fetchWeather("London");
-}, []);
-if (isLoading) return <div className="flex flex-row justify-center items-center min-h-screen text-3xl"><ImSpinner9 className="animate-spin mr-2 w-8 h-8"/>
-  Loading...</div>;
-if (error) {
-  const is404 = error.message.includes("404");
+      const response = await fetch(
+        `${baseUrl}?q=${cityToFetch}&appid=${apiKey}&units=metric`,
+      );
 
-  return (
-    <ErrorMessage
-      title={is404 ? "City Not Found" : "Oops!"}
-      message={is404 
-        ? "We couldn't find that city.Please check the spelling and try again."
-        : error.message
+      if (!response.ok) {
+        throw new Error(`${response.status}-${response.statusText}`);
       }
-      onRetry={() => fetchWeather(displayCity)}
-     
-    />
-  );
-}
+      const data = await response.json();
+      setWeather(data);
+      setDisplayCity(cityToFetch);
+      setCityName("");
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchWeather("London");
+  }, []);
+  if (isLoading)
+    return (
+      <div className="flex flex-row justify-center items-center min-h-screen text-3xl gap-3">
+        <ImSpinner9 className="animate-spin w-8 h-8 text-yellow-400" />
+        Loading...
+      </div>
+    );
+  if (error) {
+    const is404 = error.message.includes("404");
 
-function getWeatherIcon(condition) {
-  if (!condition) return null;
+    return (
+      <ErrorMessage
+        title={is404 ? "City Not Found" : "Oops!"}
+        message={
+          is404
+            ? "We couldn't find that city.Please check the spelling and try again."
+            : error.message
+        }
+        onRetry={() => fetchWeather(displayCity)}
+      />
+    );
+  }
 
-  const text = condition.toLowerCase();
+  function getWeatherIcon(condition) {
+    if (!condition) return null;
 
-  if (text.includes("cloud")) return <WiCloud color="#8EC5FF" className="w-12 h-12" />;
-  if (text.includes("rain")) return <WiRain color="#00BCFF" className="w-12 h-12" />;
-  if (text.includes("snow")) return <WiSnow  color="#DBEAFE" className="w-12 h-12" />;
-  if (text.includes("clear")) return <WiDaySunny color="#FEE685" className="w-12 h-12" />;
-  
-  if (text.includes("fog") || text.includes("mist") || text.includes("haze")) return <WiFog color="#9CA3AF " className="w-12 h-12" />;
+    const text = condition.toLowerCase();
 
-  // fallback
-  return null;
-}
+    if (text.includes("cloud"))
+      return <WiCloud color="#8EC5FF" className="w-12 h-12" />;
+    if (text.includes("rain"))
+      return <WiRain color="#00BCFF" className="w-12 h-12" />;
+    if (text.includes("snow"))
+      return <WiSnow color="#DBEAFE" className="w-12 h-12" />;
+    if (text.includes("clear"))
+      return <WiDaySunny color="#FEE685" className="w-12 h-12" />;
+
+    if (text.includes("fog") || text.includes("mist") || text.includes("haze"))
+      return <WiFog color="#9CA3AF " className="w-12 h-12" />;
+
+    // fallback
+    return null;
+  }
 
   return (
     <>
-      <div className="w-full  min-h-screen  flex flex-col  items-center justify-center  mx-auto ">
+      <div className="w-full  min-h-screen  flex flex-col  items-center justify-center  mx-auto px-3 py-4 md:p-0">
         {/* app  */}
-        <section className=" w-full flex flex-col  items-center  md:max-w-2xl    md:rounded-xl shadow-2xl px-10 py-14 md:m-5 md:px-20 md:py-10 ">
+        <section className=" w-full flex flex-col  items-center  md:max-w-2xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl px-6 py-12 md:m-5 md:px-16 md:py-12 ">
           {/* search box */}
-          <div className="flex bg-white/20 flex-row w-full max-w-xs md:max-w-xl justify-between px-4 py-2  shadow-md rounded-xl font-normal">
+          <div className="flex bg-white/15 border border-white/20 flex-row items-center w-full max-w-xs md:max-w-xl justify-between px-5 py-2 shadow-md rounded-full font-normal transition focus-within:bg-white/25 focus-within:border-white/40 focus-within:shadow-lg">
             <input
               value={cityName}
               onChange={(e) => setCityName(e.target.value)}
               onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      
-      fetchWeather(cityName);
-    }
-  }}
+                if (e.key === "Enter") {
+                  fetchWeather(cityName);
+                }
+              }}
               type="text"
-              className="w-full max-w-sm md:text-2xl text-lg text-gray-300 bg-transparent  focus:placeholder-gray-100 outline-none hover:outline-none "
-              placeholder="City name..."
+              className="w-full max-w-sm md:text-2xl text-lg text-white bg-transparent outline-none"
+              placeholder="Search city..."
             />
-            <button onClick={() => fetchWeather()}
-   
+            <button
+              onClick={() => fetchWeather()}
+              aria-label="Search"
+              className="cursor-pointer text-gray-200 transition hover:text-yellow-400 hover:scale-110"
             >
-              {" "}
-              <HiOutlineSearch className="md:w-8 md:h-8 w-7 h-7  hover:text-gray-100 " />
+              <HiOutlineSearch className="md:w-8 md:h-8 w-7 h-7" />
             </button>
           </div>
           {/* city name text */}
-          <h1 className=" mt-8 text-xl  md:text-3xl font-semibold whitespace-nowrap">
+          <h1 className=" mt-8 text-xl text-center md:text-3xl font-medium">
             How's the weather today in
-            <span className="ml-2 font-bold text-2xl md:text-4xl  text-yellow-600">{displayCity.replace(/\b\w/g, char => char.toUpperCase()) || "London"}</span>
+            <span className="ml-2 block sm:inline font-bold text-3xl md:text-4xl text-yellow-400 drop-shadow">
+              {displayCity.replace(/\b\w/g, (char) => char.toUpperCase()) ||
+                "London"}
+            </span>
           </h1>
           {/* temperature & status */}
-          <div className="w-full bg-white/20 flex flex-row justify-center gap-4 items-baseline  md:mx-0 md:mt-10 mt-5  shadow-md py-4  rounded-full">
-          {/* temp  */}
-            <p className="-ml-10  flex flex-row font-manrope  md:text-7xl text-5xl font-bold text-yellow-600">
+          <div className="w-full bg-gradient-to-r from-white/20 to-white/10 border border-white/20 flex flex-row justify-center gap-4 items-baseline md:mx-0 md:mt-10 mt-6 shadow-lg py-5 rounded-3xl">
+            {/* temp  */}
+            <p className="-ml-10  flex flex-row font-manrope  md:text-7xl text-5xl font-bold text-yellow-400 drop-shadow">
               {" "}
-              
-               {weather?.main ? Math.round(weather?.main?.temp) : "..."}
+              {weather?.main ? Math.round(weather?.main?.temp) : "..."}
               <RiCelsiusFill />{" "}
             </p>
             {/* status */}
-           <div className="relative">
-             <p className="text-2xl  md:text-4xl font-semibold pt-7"> {weather?.weather[0]?.main}</p>
+            <div className="relative">
+              <p className="text-2xl  md:text-4xl font-semibold pt-7">
+                {" "}
+                {weather?.weather[0]?.main}
+              </p>
               {/* status icon */}
-            <div className="absolute -right-10 -top-1">
-              {getWeatherIcon(weather?.weather[0]?.main)}
+              <div className="absolute -right-10 -top-1">
+                {getWeatherIcon(weather?.weather[0]?.main)}
+              </div>
             </div>
-           </div>
-           
           </div>
           {/* cards */}
-          <div className="grid grid-cols-2 gap-5 md:gap-10 mt-10">
-             <InformationBox Icon={FaSortAmountDownAlt} details={{title:"Min Temp", value: Math.round(weather?.main?.temp_min), unit:"°C"}} />
-              <InformationBox Icon={FaSortAmountUp } details={{title:"Max Temp", value: Math.round(weather?.main?.temp_max), unit:"°C"}} />
-        
-            <InformationBox  Icon={FiWind} details={{title:"Wind Speed", value: weather?.wind?.speed, unit:"km/h"}}/>
-        
-           
-             <InformationBox Icon={TbDroplet} details={{title:"Humidity", value: weather?.main?.humidity, unit:"%"}} />
-          
-         <InformationBox Icon={TbTemperature} details={{title:"Feels Like", value: Math.round(weather?.main?.feels_like), unit:"°C"}} />
-              <InformationBox Icon={FaGauge} details={{title:"Pressure", value: weather?.main?.pressure, unit:"hPa"}} />
-            
-          
-        
-           
-              
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mt-10 w-full">
+            <InformationBox
+              Icon={FiWind}
+              details={{
+                title: "Wind Speed",
+                value: weather?.wind?.speed,
+                unit: "km/h",
+              }}
+            />
+
+            <InformationBox
+              Icon={TbDroplet}
+              details={{
+                title: "Humidity",
+                value: weather?.main?.humidity,
+                unit: "%",
+              }}
+            />
+
+            <InformationBox
+              Icon={TbTemperature}
+              details={{
+                title: "Feels Like",
+                value: Math.round(weather?.main?.feels_like),
+                unit: "°C",
+              }}
+            />
+            <InformationBox
+              Icon={FaGauge}
+              details={{
+                title: "Pressure",
+                value: weather?.main?.pressure,
+                unit: "hPa",
+              }}
+            />
+
+            <InformationBox
+              Icon={FaSortAmountDownAlt}
+              details={{
+                title: "Min Temp",
+                value: Math.round(weather?.main?.temp_min),
+                unit: "°C",
+              }}
+            />
+            <InformationBox
+              Icon={FaSortAmountUp}
+              details={{
+                title: "Max Temp",
+                value: Math.round(weather?.main?.temp_max),
+                unit: "°C",
+              }}
+            />
           </div>
         </section>
         <Footer />

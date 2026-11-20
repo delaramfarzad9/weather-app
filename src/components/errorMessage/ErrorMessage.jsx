@@ -1,14 +1,15 @@
-export default function ErrorMessage({ 
-  title = "Something went wrong", 
-  message = "Please try again.", 
-  onRetry, 
-  onHome 
+export default function ErrorMessage({
+  title = "Something went wrong",
+  message = "Please try again.",
+  onRetry,
+  onHome,
 }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center 
-                    bg-white/20 backdrop-blur-md border border-white/30 
-                    shadow-xl rounded-xl p-8 max-w-sm mx-auto mt-10">
-
+    <div
+      className="flex flex-col items-center justify-center text-center 
+                    bg-white/10 backdrop-blur-xl border border-white/20 
+                    shadow-2xl rounded-3xl p-8 max-w-sm mx-auto my-auto min-h-fit"
+    >
       <p className="text-4xl mb-4">😕</p>
 
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
@@ -18,7 +19,7 @@ export default function ErrorMessage({
         {onRetry && (
           <button
             onClick={onRetry}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium"
+            className="px-5 py-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 rounded-full font-semibold cursor-pointer transition"
           >
             Try Again
           </button>
@@ -27,7 +28,7 @@ export default function ErrorMessage({
         {onHome && (
           <button
             onClick={onHome}
-            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg font-medium"
+            className="px-5 py-2 bg-white/20 hover:bg-white/30 rounded-full font-medium cursor-pointer transition"
           >
             Home
           </button>

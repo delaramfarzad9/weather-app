@@ -157,7 +157,7 @@ function App() {
               Icon={FiWind}
               details={{
                 title: "Wind Speed",
-                value: weather?.wind?.speed,
+               value: (weather?.wind?.speed * 3.6).toFixed(2),
                 unit: "km/h",
               }}
             />
